@@ -2,10 +2,10 @@
 -- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Hôte : db
--- Généré le :  mer. 24 oct. 2018 à 12:05
--- Version du serveur :  5.6.41
--- Version de PHP :  7.2.8
+-- Hôte : 127.0.0.1
+-- Généré le :  ven. 26 oct. 2018 à 14:14
+-- Version du serveur :  10.1.36-MariaDB
+-- Version de PHP :  7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -36,20 +36,7 @@ CREATE TABLE `address` (
   `city` varchar(45) DEFAULT NULL,
   `phone` varchar(45) DEFAULT NULL,
   `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Doublure de structure pour la vue `ExpensivePizza`
--- (Voir ci-dessous la vue réelle)
---
-CREATE TABLE `ExpensivePizza` (
-`id` int(11)
-,`name` varchar(45)
-,`price` decimal(11,2)
-,`image` varchar(255)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -62,7 +49,7 @@ CREATE TABLE `order` (
   `ordered_at` datetime DEFAULT NULL,
   `reference` varchar(45) DEFAULT NULL,
   `address_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -77,7 +64,7 @@ CREATE TABLE `order_detail` (
   `pizza_size` varchar(45) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   `order_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -89,8 +76,10 @@ CREATE TABLE `pizza` (
   `id` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   `price` decimal(11,2) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `image` varchar(255) DEFAULT NULL,
+  `description` text,
+  `category` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -101,7 +90,7 @@ CREATE TABLE `pizza` (
 CREATE TABLE `pizza_has_size` (
   `pizza_id` int(11) NOT NULL,
   `size_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -113,7 +102,7 @@ CREATE TABLE `size` (
   `id` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   `price` decimal(11,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -125,16 +114,7 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   `firstname` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la vue `ExpensivePizza`
---
-DROP TABLE IF EXISTS `ExpensivePizza`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `ExpensivePizza`  AS  select `pizza`.`id` AS `id`,`pizza`.`name` AS `name`,`pizza`.`price` AS `price`,`pizza`.`image` AS `image` from `pizza` order by `pizza`.`price` desc ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Index pour les tables déchargées
