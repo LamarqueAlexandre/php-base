@@ -4,11 +4,12 @@ $currentPageTitle = 'Ajouter une pizza';
 require_once(__DIR__.'/partials/header.php');
 // Traitement du formulaire
 $name = $price = $image = $category = $description = null;
+
 // le formulaire est soumis
 if (!empty($_POST)) {
     $name = $_POST['name'];
     $price = str_replace(',', '.', $_POST['price']); // on remplace la , par un . pour le prix
-    $image = $_POST['image'];
+    $image = $_FILES['image'];
     $category = $_POST['category'];
     $description = $_POST['description'];
     // Raccourci avec l'interpolation de variables
@@ -18,6 +19,7 @@ if (!empty($_POST)) {
     // foreach ($_POST as $key => $field) {
     //    $$key = $field;
     // }
+
     // Définir un tableau d'erreur vide qui va se remplir après chaque erreur
     $errors = [];
     // Vérifier le name
@@ -29,7 +31,7 @@ if (!empty($_POST)) {
         $errors['price'] = 'Le prix n\'est pas valide';
     }
     // Vérifier l'image
-    if (empty($image)) {
+    if ($image['error'] === 4) {
         $errors['image'] = 'L\'image n\'est pas valide';
     }
     // Vérifier la catégorie
@@ -40,6 +42,24 @@ if (!empty($_POST)) {
     if (strlen($description) < 10) {
         $errors['description'] = 'La description n\'est pas valide';
     }
+
+    
+    // Upload de l'image
+    // if(empty($errors)) {
+        var_dump($image);
+        $file = $image['tmp_name']; //Emplacement du fichier temporaire
+        $finfo = finfo_open(FILEINFO_MIME_TYPE); // Permet d'ouvrir un fichier
+        $mimeType = finfo_file($finfo, $file); // Ouvre le fichier et renvoie image/jpg
+        $allowedExtensions = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
+        // Si l'extension n'est pas autorisée, il y a une erreur
+        if(!in_array($mimeType, $allowedExtensions)) {
+            $errors['image'] = 'Ce type de fichier n\'est pas autorisé';
+        }
+
+        move_uploaded_file($file, __DIR__.'/assets/img/'.$image['name']); // On déplace le fichier uploadé où on le souhaite
+    // }
+
+
     // S'il n'y a pas d'erreurs dans le formulaire
     if (empty($errors)) {
         $query = $db->prepare('
@@ -71,7 +91,7 @@ if (!empty($_POST)) {
         </div>
     <?php } ?>
     
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -94,7 +114,7 @@ if (!empty($_POST)) {
                 </div>
                 <div class="form-group">
                     <label for="image">Image :</label>
-                    <input type="text" name="image" id="image" class="form-control <?php echo isset($errors['image']) ? 'is-invalid' : null; ?>" value="<?php echo $image; ?>">
+                    <input type="file" name="image" id="image" class="form-control <?php echo isset($errors['image']) ? 'is-invalid' : null; ?>">
                     <?php if (isset($errors['image'])) {
                         echo '<div class="invalid-feedback">';
                             echo $errors['image'];
