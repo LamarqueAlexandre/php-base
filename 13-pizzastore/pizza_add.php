@@ -48,6 +48,7 @@ if (!empty($_POST)) {
     // if(empty($errors)) {
         var_dump($image);
         $file = $image['tmp_name']; //Emplacement du fichier temporaire
+        $fileName = 'img/'.$image['name']; // Variable pour la base de données
         $finfo = finfo_open(FILEINFO_MIME_TYPE); // Permet d'ouvrir un fichier
         $mimeType = finfo_file($finfo, $file); // Ouvre le fichier et renvoie image/jpg
         $allowedExtensions = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
@@ -56,7 +57,16 @@ if (!empty($_POST)) {
             $errors['image'] = 'Ce type de fichier n\'est pas autorisé';
         }
 
-        move_uploaded_file($file, __DIR__.'/assets/img/'.$image['name']); // On déplace le fichier uploadé où on le souhaite
+        // Vérifier la taille du fichier
+        // Le 30 est défini en KO
+        if($image['size'] / 1024 > 30) {
+            $errors['image'] = 'L\'image est trop lourde';
+        }
+
+        if(!isset($errors['image'])) {
+            move_uploaded_file($file, __DIR__.'/assets/'.$fileName); // On déplace le fichier uploadé où on le souhaite
+        }
+        
     // }
 
 
@@ -67,7 +77,7 @@ if (!empty($_POST)) {
         ');
         $query->bindValue(':name', $name, PDO::PARAM_STR);
         $query->bindValue(':price', $price, PDO::PARAM_STR);
-        $query->bindValue(':image', $image, PDO::PARAM_STR);
+        $query->bindValue(':image', $fileName, PDO::PARAM_STR);
         $query->bindValue(':category', $category, PDO::PARAM_STR);
         $query->bindValue(':description', $description, PDO::PARAM_STR);
         if ($query->execute()) { // On insère la pizza dans la BDD

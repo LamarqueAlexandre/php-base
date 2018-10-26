@@ -20,7 +20,7 @@ $pizzas = $query->fetchAll();
             <div class="card mb-4">
                 <figure class="card-img-top-container">
                     <div class="card-img-top card-img-top-zoom-effect">
-                        <img src="<?= $pizza['image'];?>" alt="<?= $pizza['name'];?>">
+                        <img src="<?= 'assets/'.$pizza['image'];?>" alt="<?= $pizza['name'];?>">
                         <figcaption class="card-price"><?= formatPrice($pizza['price']);?></figcaption>
                     </div>    
                 </figure>
