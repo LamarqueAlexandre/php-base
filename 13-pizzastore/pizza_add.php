@@ -1,23 +1,19 @@
 <?php
+// Inclus la base de données
+require_once(__DIR__.'/config/database.php');
+
 // Le fichier header.php est inclus sur la page
 require_once(__DIR__.'/partials/header.php'); ?>
 
     <main class="container">
         <h1>Ajouter une pizza</h1>
 
-    <?php
-    $name = $_POST['name'];
-
-    $query = 
-
-
-    ?>
         <div class="row">
             <div class="offset-lg-2 col-lg-6">
                 <form method="POST" id="add_pizza">
                     <div class="form-group">
                         <label for="pizza_name">Nom de la pizza</label>
-                        <input type="text" class="form-control" id="pizza_name">
+                        <input name="pizza_name" type="text" class="form-control" id="pizza_name">
                     </div>
                     <div class="form-group">
                         <label for="pizza_price">Prix</label>
