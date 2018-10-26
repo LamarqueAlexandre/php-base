@@ -47,3 +47,12 @@ h1 {
 .card-price-cents {
     font-size: 0.7em;
 }
+
+.pizza_describe {
+    display: block;
+}
+
+.btn-submit {
+    display: flex;
+    justify-content: center;
+}
