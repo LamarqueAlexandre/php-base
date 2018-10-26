@@ -1,0 +1,49 @@
+.navbar-brand {
+    font-family: 'Permanent Marker', cursive;
+}
+
+h1 {
+    font-family: 'Courgette', cursive;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    border-bottom: 2px solid #e8e8e8;
+    padding-bottom: 25px;
+}
+
+.card-title, .nav-link {
+    font-family: 'Courgette', cursive;
+}
+
+.card-img-top-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.card-img-top-zoom-effect {
+    transition: 0.5s;
+}
+
+.card-img-top-zoom-effect:hover {
+    cursor: pointer;
+    transition: 0.5s;
+    transform: scale(1.1);
+}
+
+.card-price {
+    width: 25%;
+    text-align: center;
+    color: white;
+    background-color: #dc3545;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 10%;
+    left: 70%;
+}
+
+.card-price:hover {
+    user-select: none;
+}
+
+.card-price-cents {
+    font-size: 0.7em;
+}

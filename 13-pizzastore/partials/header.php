@@ -1,4 +1,6 @@
 <?php
+  // Inclusion du fichier functions
+  require_once(__DIR__.'/../config/functions.php');
   // Inclusion du fichier config
   require_once(__DIR__.'/../config/config.php');
   // Inclusion du fichier database
@@ -12,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Courgette|Permanent+Marker" rel="stylesheet">
     <link rel="icon" href="assets/img/favicon.ico">
 
     <title>
